@@ -4,7 +4,7 @@ export const publicRoutes = ['/'];
 
 // Routes that used for authentication
 // These routes will redirect logged in users to /settings
-export const authRoutes = ['/auth/login', '/auth/register'];
+export const authRoutes = ['/auth/login', '/auth/register', '/auth/error'];
 
 // The prefix for API authentication routes
 // Routes that starts with the prefix are used for API authentication purposes

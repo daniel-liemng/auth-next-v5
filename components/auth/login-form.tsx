@@ -21,8 +21,15 @@ import FormError from '../form-error';
 import FormSuccess from '../form-success';
 import { login } from '@/actions/login';
 import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already in use with different provider!'
+      : '';
+
   const [success, setSuccess] = useState<string | undefined>('');
   const [error, setError] = useState<string | undefined>('');
 
@@ -43,7 +50,9 @@ const LoginForm = () => {
     startTransition(() => {
       login(values).then((data) => {
         setError(data?.error);
-        setSuccess(data?.success);
+
+        // TODO: Add when we add 2FA
+        // setSuccess(data?.success);
       });
     });
   };
@@ -98,6 +107,8 @@ const LoginForm = () => {
           </div>
 
           {error && <FormError message={error} />}
+
+          {urlError && <FormError message={urlError} />}
 
           {success && <FormSuccess message={success} />}
 
