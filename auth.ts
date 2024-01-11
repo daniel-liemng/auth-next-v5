@@ -42,17 +42,25 @@ export const {
     },
   },
   callbacks: {
-    // async signIn({ user }) {
-    //   console.log('SignIn', user);
+    async signIn({ user, account }) {
+      console.log('SIGNIN', { user, account });
 
-    //   const existingUser = await getUserById(user.id);
+      // Allow OAuth without email verification
+      if (account?.provider !== 'credentials') {
+        return true;
+      }
 
-    //   if (!existingUser || !existingUser.emailVerified) {
-    //     return false;
-    //   }
+      const existingUser = await getUserById(user.id);
 
-    //   return true;
-    // },
+      // Prevent sign in without email verification
+      if (!existingUser || !existingUser.emailVerified) {
+        return false;
+      }
+
+      // TODO: Add 2FA check
+
+      return true;
+    },
     async session({ token, session }) {
       console.log('Session', { token, session });
 
