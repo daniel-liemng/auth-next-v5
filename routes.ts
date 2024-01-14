@@ -1,6 +1,6 @@
 // Routes that are accessible to the public
 // These routes do not require authentication
-export const publicRoutes = ['/'];
+export const publicRoutes = ['/', '/auth/new-verification'];
 
 // Routes that used for authentication
 // These routes will redirect logged in users to /settings
